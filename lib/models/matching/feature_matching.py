@@ -38,6 +38,8 @@ class PrecomputedMatching:
 
         # get correspondences for the given pair
         pair_id = data['pair_id'].item()
+        if len(self.correspondences) < 200:
+            pair_id = pair_id//5 # TODO: fix ugly hack!!
         corr = self.correspondences[pair_id]
 
         # remove nan's (filler)
