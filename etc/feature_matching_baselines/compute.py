@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
         pts_stack = list()
         print(f'Started {scene_dir.name}')
-        for pair in tqdm(im_pairs_path):
+        for pair in tqdm(im_pairs_path[::5]):
             pts = matcher.match(pair)
             pts_stack.append(pts)
         pts_stack = stack_pts(pts_stack)
