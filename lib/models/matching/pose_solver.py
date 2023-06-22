@@ -135,6 +135,12 @@ class EssentialMatrixMetricSolver(EssentialMatrixSolver):
         K0 = data['K_color0'].squeeze(0)
         K1 = data['K_color1'].squeeze(0)
         mask = self.mask.ravel() == 1        # get E-mat inlier mask from super class
+        H1,W1 = data['depth0'].shape[1:3]
+        H2,W2 = data['depth0'].shape[1:3]
+        #print(mask.sum())
+        mask = mask * (kpts0[:,0] < W1-1) * (kpts0[:,0] > 0) * (kpts0[:,1] < H1-1) * (kpts0[:,1] > 0)
+        mask = mask * (kpts1[:,0] < W2-1) * (kpts1[:,0] > 0) * (kpts1[:,1] < H2-1) * (kpts1[:,1] > 0)
+        #print(mask.sum())
         inliers_kpts0 = np.int32(kpts0[mask])
         inliers_kpts1 = np.int32(kpts1[mask])
         depth_inliers_0 = data['depth0'][0, inliers_kpts0[:, 1], inliers_kpts0[:, 0]].numpy()
